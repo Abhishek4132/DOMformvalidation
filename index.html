@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+    
+            
+        
+        
+
+
+    </style>
+</head>
+<body>
+    <form id="myForm" style="background-color: darkcyan;"><br><br><br>
+        <input type="text" id="name" placeholder="Username" style="font-size: 15px;"><br><br><br>
+        <input type="password" id="pw" placeholder="Password" style="font-size: 15px;"><br><br><br>
+        <button type="submit" style="font-size:20px; background-color:crimson">Submit</button>
+    </form>
+  
+    
+    <script>
+       
+        let getForm = document.getElementById("myForm");
+        getForm.style.border="2px solid black";
+        getForm.style.height="300px";
+        getForm.style.width="300px";
+        getForm.style.textAlign="center";
+        getForm.style.borderRadius="10px";
+        getForm.style.boxShadow="0px 1px 10px 1px";
+        getForm.addEventListener("submit", (event) => {
+            event.preventDefault(); 
+       
+            let existingUsers = localStorage.getItem("userdetails");
+            let users = existingUsers ? JSON.parse(existingUsers) : [];
+
+            let input1 = document.getElementById("name").value;
+            let input2 = document.getElementById("pw").value;
+    
+            let userExists = users.some(user => user.name === input1 && user.pw === input2);
+            if (userExists) {
+                alert("User already exists!");
+                return;
+            }
+    
+            let userDetails = { name: input1, pw: input2 };
+            users.push(userDetails);
+            localStorage.setItem("userdetails", JSON.stringify(users));
+            
+            document.getElementById("name").value = "";
+            document.getElementById("pw").value = "";
+        });
+        <!-- localStorage.clear() -->
+</script>
+</body>
+</html>
